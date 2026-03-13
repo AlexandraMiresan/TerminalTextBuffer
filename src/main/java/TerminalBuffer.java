@@ -131,4 +131,16 @@ public class TerminalBuffer {
         }
     }
 
+    public void insertEmptyLineAtBottom(){
+        TerminalLine top = screen.removeFirst();
+
+        scrollback.add(top);
+
+        if(scrollback.size() > scrollbackMaxSize){
+            scrollback.removeFirst();
+        }
+
+        screen.add(new TerminalLine(width));
+    }
+
 }
