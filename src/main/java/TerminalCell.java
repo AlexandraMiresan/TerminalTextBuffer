@@ -25,8 +25,12 @@ public class TerminalCell {
         return attributes;
     }
 
-    public void setAttributes(Attributes attributes) {
-        this.attributes = attributes;
+    public void setCellAttributes(Attributes attributes) {
+        this.attributes.setAttributes(attributes);
+    }
+
+    public void setCellAttributes(Color foreground, Color background, boolean bold, boolean italic, boolean underline){
+        this.attributes.setAttributes(foreground, background, bold, italic, underline);
     }
 
 }
