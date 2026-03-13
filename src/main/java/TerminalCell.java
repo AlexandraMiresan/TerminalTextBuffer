@@ -8,6 +8,11 @@ public class TerminalCell {
         this.attributes = attributes;
     }
 
+    public TerminalCell(){
+        this.character = ' ';
+        this.attributes = new Attributes();
+    }
+
     public char getCharacter() {
         return character;
     }
@@ -23,5 +28,5 @@ public class TerminalCell {
     public void setAttributes(Attributes attributes) {
         this.attributes = attributes;
     }
-    
+
 }
