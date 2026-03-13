@@ -119,6 +119,16 @@ public class TerminalBuffer {
 
         line.setCell(cursorX, new TerminalCell(character, currentAttributes));
     }
-    
+
+    public void fillLine(char character){
+        TerminalLine line = screen.get(cursorY);
+
+        for(int i = 0; i < width; i++){
+            TerminalCell cell = line.getCell(i);
+
+            cell.setCharacter(character);
+            cell.setCellAttributes(currentAttributes);
+        }
+    }
 
 }
