@@ -57,4 +57,38 @@ public class TerminalBuffer {
         cursorX = Math.min(width - 1, cursorX + nCells);
     }
 
+    public void write(String text){
+        for(char character : text.toCharArray()){
+            TerminalLine line = screen.get(cursorY);
+            TerminalCell cell = line.getCell(cursorX);
+
+            cell.setCharacter(character);
+            cell.setCellAttributes(currentAttributes);
+
+            cursorX++;
+
+            if(cursorX >= width){
+                cursorX = 0;
+                cursorY++;
+
+                if(cursorY >= height){
+                    scroll();
+                    cursorY = height - 1;
+                }
+            }
+        }
+    }
+
+    private void scroll(){
+        TerminalLine removed = screen.removeFirst();
+
+        scrollback.add(removed);
+
+        if(scrollback.size() > scrollbackMaxSize){
+            scrollback.removeFirst();
+        }
+
+        screen.add(new TerminalLine(width));
+    }
+
 }
