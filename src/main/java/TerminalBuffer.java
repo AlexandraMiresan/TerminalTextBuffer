@@ -91,4 +91,34 @@ public class TerminalBuffer {
         screen.add(new TerminalLine(width));
     }
 
+    public void insertText(String text){
+        for(char character : text.toCharArray()){
+            insertCharacter(character);
+
+            cursorX++;
+
+            if(cursorX >= width){
+                cursorX = 0;
+                cursorY++;
+
+                if(cursorY >= height){
+                    scroll();
+                    cursorY = height - 1;
+                }
+            }
+
+        }
+    }
+
+    private void insertCharacter(char character){
+        TerminalLine line = screen.get(cursorY);
+
+        for(int i = width - 1; i > cursorX; i--){
+            line.setCell(i, line.getCell(i - 1));
+        }
+
+        line.setCell(cursorX, new TerminalCell(character, currentAttributes));
+    }
+    
+
 }
