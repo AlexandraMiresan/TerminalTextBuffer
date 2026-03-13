@@ -143,4 +143,24 @@ public class TerminalBuffer {
         screen.add(new TerminalLine(width));
     }
 
+    public void clearScreen(){
+        screen.clear();
+
+        for(int i = 0; i < height; i++){
+            screen.add(new TerminalLine(width));
+        }
+
+        cursorX = 0;
+        cursorY = 0;
+    }
+
+    public void clearScrollback(){
+        scrollback.clear();
+    }
+
+    public void clearScreenAndScrollback(){
+        clearScreen();
+        clearScrollback();
+    }
+
 }
