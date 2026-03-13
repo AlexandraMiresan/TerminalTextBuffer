@@ -41,4 +41,20 @@ public class TerminalBuffer {
         this.cursorY = Math.max(0, Math.min(height - 1, cursorY));
     }
 
+    public void moveCursorUp(int nCells){
+        cursorY = Math.max(0, cursorY - nCells);
+    }
+
+    public void moveCursorDown(int nCells){
+        cursorY = Math.min(height - 1, cursorY + nCells);
+    }
+
+    public void moveCursorLeft(int nCells){
+        cursorX = Math.max(0, cursorX - nCells);
+    }
+
+    public void moveCursorRight(int nCells){
+        cursorX = Math.min(width - 1, cursorX + nCells);
+    }
+
 }
