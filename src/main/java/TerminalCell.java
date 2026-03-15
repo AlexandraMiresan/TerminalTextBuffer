@@ -33,4 +33,9 @@ public class TerminalCell {
         this.attributes.setAttributes(foreground, background, bold, italic, underline);
     }
 
+    @Override
+    public String toString(){
+        return String.valueOf(character);
+    }
+
 }
