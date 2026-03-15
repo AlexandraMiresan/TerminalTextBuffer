@@ -163,3 +163,18 @@ class TerminalBufferTest {
         assertEquals('B', buffer.getCharacterAtPosition(1,0));
         assertEquals(' ',  buffer.getCharacterAtPosition(2,0));
     }
+
+    @Test
+    void testInsertEmptyLineAtBottomRemovesScrollbackLine(){
+        TerminalBuffer buffer = new TerminalBuffer(4, 1, 1);
+
+        buffer.write("AAAA");
+        buffer.write("BBBB");
+
+        buffer.insertEmptyLineAtBottom();
+
+        assertEquals(' ', buffer.getCharacterAtPosition(0,0));
+        assertEquals(' ',  buffer.getCharacterAtPosition(1,0));
+
+    }
+
