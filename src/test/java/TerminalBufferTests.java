@@ -124,3 +124,15 @@ class TerminalBufferTest {
         assertEquals('D', buffer.getCharacterAtPosition(1,0));
     }
 
+
+    @Test
+    void testFillLine() {
+        TerminalBuffer buffer = new TerminalBuffer(4,2,5);
+
+        buffer.fillLine('*');
+
+        for(int i = 0; i < 4; i++) {
+            assertEquals('*', buffer.getCharacterAtPosition(0,i));
+        }
+    }
+
