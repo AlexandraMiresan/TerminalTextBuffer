@@ -235,3 +235,14 @@ class TerminalBufferTest {
         assertNotNull(attributes);
     }
 
+    @Test
+    void testGetLineAsString() {
+        TerminalBuffer buffer = new TerminalBuffer(5,2,5);
+
+        buffer.write("Hello");
+
+        String line = buffer.getLineAsString(0);
+
+        assertTrue(line.startsWith("Hello"));
+    }
+
