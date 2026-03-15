@@ -3,6 +3,7 @@ import java.util.List;
 
 public class TerminalLine {
     private List<TerminalCell> cells;
+    private boolean wrapped;
 
     public TerminalLine(int width){
         this.cells = new ArrayList<>();
@@ -10,6 +11,15 @@ public class TerminalLine {
         for(int i = 0; i < width; i++){
             this.cells.add(new TerminalCell());
         }
+        wrapped = false;
+    }
+
+    public boolean isWrapped(){
+        return wrapped;
+    }
+
+    public void setWrapped(boolean wrapped){
+        this.wrapped = wrapped;
     }
 
     public List<TerminalCell> getLine() {
