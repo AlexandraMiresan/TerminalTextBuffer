@@ -44,4 +44,20 @@ class TerminalLineTests {
         assertEquals(attributes, line.getCell(0).getAttributes());
 
     }
+
+    @Test
+    void testToString(){
+        TerminalLine line = new TerminalLine(5);
+
+        Attributes attributes = new Attributes();
+        TerminalCell cell = new TerminalCell('a', attributes);
+
+        for(int i = 0; i < getLineSize(line); i++){
+            line.setCell(i, cell);
+        }
+
+        String lineToString = line.toString();
+
+        assertEquals("aaaaa", lineToString);
+    }
 }
