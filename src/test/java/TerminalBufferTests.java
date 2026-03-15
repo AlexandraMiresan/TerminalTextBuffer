@@ -246,3 +246,14 @@ class TerminalBufferTest {
         assertTrue(line.startsWith("Hello"));
     }
 
+    @Test
+    void testGetScreenAsString() {
+        TerminalBuffer buffer = new TerminalBuffer(5,2,5);
+
+        buffer.write("Hi");
+
+        String screen = buffer.getScreenAsString();
+
+        assertTrue(screen.contains("Hi"));
+    }
+
