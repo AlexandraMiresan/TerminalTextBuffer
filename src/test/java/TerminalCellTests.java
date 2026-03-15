@@ -37,3 +37,32 @@ class TerminalCellTests {
         assertEquals(character, terminalCell.getCharacter());
     }
 
+    @Test
+    void testGroupSetters(){
+        TerminalCell terminalCell = new TerminalCell();
+        Attributes attributes = new Attributes(Color.WHITE, Color.CYAN, true, false, false);
+
+        terminalCell.setCellAttributes(attributes);
+        assertEquals(Color.WHITE, terminalCell.getAttributes().getForeground());
+        assertEquals(Color.CYAN, terminalCell.getAttributes().getBackground());
+
+        assertTrue(terminalCell.getAttributes().isBold());
+        assertFalse(terminalCell.getAttributes().isItalic());
+        assertFalse(terminalCell.getAttributes().isUnderline());
+
+        Color foreground = Color.BLUE;
+        Color background = Color.MAGENTA;
+
+        boolean bold = true;
+        boolean italic = true;
+        boolean underline = true;
+
+        terminalCell.setCellAttributes(foreground, background, bold, italic, underline);
+
+        assertEquals(foreground, terminalCell.getAttributes().getForeground());
+        assertEquals(background, terminalCell.getAttributes().getBackground());
+        assertEquals(bold, terminalCell.getAttributes().isBold());
+        assertEquals(italic, terminalCell.getAttributes().isItalic());
+        assertEquals(underline, terminalCell.getAttributes().isUnderline());
+    }
+
