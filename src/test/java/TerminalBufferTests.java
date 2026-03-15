@@ -136,3 +136,16 @@ class TerminalBufferTest {
         }
     }
 
+    @Test
+    void testScrollbackOverflowRemovesOldestLine() {
+
+        TerminalBuffer buffer = new TerminalBuffer(3, 2, 1);
+        buffer.write("ABCDEF");
+
+        buffer.write("GHI");
+
+        char firstScrollbackChar = buffer.getCharacterAtPosition(0,0);
+
+        assertEquals('D', firstScrollbackChar);
+    }
+
