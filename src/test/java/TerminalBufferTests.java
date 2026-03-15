@@ -211,3 +211,14 @@ class TerminalBufferTest {
         }
     }
 
+    @Test
+    void testGetAttributesAtPositionFromScreen() {
+        TerminalBuffer buffer = new TerminalBuffer(4,2,5);
+
+        buffer.write("A");
+
+        Attributes attributes = buffer.getAttributesAtPosition(0,0);
+
+        assertNotNull(attributes);
+    }
+
