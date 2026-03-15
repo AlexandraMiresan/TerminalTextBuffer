@@ -202,4 +202,14 @@ public class TerminalBuffer {
         return line.toString();
     }
 
+    public String getScreenAsString(){
+        StringBuilder sb = new StringBuilder();
+
+        for(int i = 0; i < height; i++){
+            sb.append(getLineAsString(i));
+        }
+
+        return sb.toString();
+    }
+
 }
