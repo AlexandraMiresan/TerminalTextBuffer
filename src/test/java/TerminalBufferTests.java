@@ -67,3 +67,14 @@ class TerminalBufferTest {
         assertEquals('F', buffer.getCharacterAtPosition(1,0));
     }
 
+    @Test
+    void testWriteScroll() {
+        TerminalBuffer buffer = new TerminalBuffer(3,2,5);
+
+        buffer.write("ABCDEF");
+
+        assertEquals('A', buffer.getCharacterAtPosition(0,0));
+        assertEquals('B', buffer.getCharacterAtPosition(0,1));
+        assertEquals('C', buffer.getCharacterAtPosition(0,2));
+    }
+
