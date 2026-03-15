@@ -15,3 +15,17 @@ class TerminalBufferTest {
         assertEquals(' ', buffer.getCharacterAtPosition(0,0));
     }
 
+    @Test
+    void testCursorSettersClampValues() {
+        TerminalBuffer buffer = new TerminalBuffer(4,3,5);
+
+        buffer.setCursor(100,100);
+
+        assertEquals(3, buffer.getCursorX());
+        assertEquals(2, buffer.getCursorY());
+
+        buffer.setCursor(-5,-5);
+
+        assertEquals(0, buffer.getCursorX());
+        assertEquals(0, buffer.getCursorY());
+    }
