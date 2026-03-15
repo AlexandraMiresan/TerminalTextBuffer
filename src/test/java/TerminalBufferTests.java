@@ -110,3 +110,17 @@ class TerminalBufferTest {
         assertEquals(1, buffer.getCursorY());
     }
 
+    @Test
+    void testInsertTextScroll() {
+
+        TerminalBuffer buffer = new TerminalBuffer(3, 2, 5);
+
+        buffer.insertText("ABCDEFG");
+
+        assertEquals('A', buffer.getCharacterAtPosition(0,0));
+        assertEquals('B', buffer.getCharacterAtPosition(0,1));
+        assertEquals('C', buffer.getCharacterAtPosition(0,2));
+
+        assertEquals('D', buffer.getCharacterAtPosition(1,0));
+    }
+
