@@ -195,3 +195,19 @@ class TerminalBufferTest {
         assertEquals(0, buffer.getCursorY());
     }
 
+    @Test
+    void testClearScreenAndScrollback() {
+        TerminalBuffer buffer = new TerminalBuffer(4,2,5);
+
+        buffer.write("Test");
+        buffer.insertEmptyLineAtBottom();
+
+        buffer.clearScreenAndScrollback();
+
+        for(int r=0;r<2;r++){
+            for(int c=0;c<4;c++){
+                assertEquals(' ', buffer.getCharacterAtPosition(r,c));
+            }
+        }
+    }
+
