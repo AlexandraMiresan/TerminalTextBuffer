@@ -12,6 +12,7 @@ class TerminalLineTests {
         return line.getLine().size();
     }
 
+    // Verifies the constructor creates a line with the specified length filled with spaces.
     @Test
     void testDefaultConstructor(){
         TerminalLine line = new TerminalLine(5);
@@ -22,6 +23,7 @@ class TerminalLineTests {
         }
     }
 
+    //  Tests setting the entire line and individual cells updates the stored data correctly.
     @Test
     void testIndividualSetters(){
         TerminalLine line = new TerminalLine(5);
@@ -45,6 +47,7 @@ class TerminalLineTests {
 
     }
 
+    // Ensures the string representation of the line contains the characters of all cells.
     @Test
     void testToString(){
         TerminalLine line = new TerminalLine(5);
