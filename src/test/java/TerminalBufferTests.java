@@ -47,3 +47,12 @@ class TerminalBufferTest {
         assertEquals(1, buffer.getCursorY());
     }
 
+    @Test
+    void testWriteSimple() {
+        TerminalBuffer buffer = new TerminalBuffer(5,3,5);
+
+        buffer.write("Hi");
+
+        assertEquals('H', buffer.getCharacterAtPosition(0,0));
+        assertEquals('i', buffer.getCharacterAtPosition(0,1));
+    }
