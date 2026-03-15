@@ -17,3 +17,13 @@ class TerminalCellTests {
         assertFalse(attributes.isUnderline());
     }
 
+    @Test
+    void testConstructorWithParameters() {
+        char character = 'a';
+        Attributes attributes = new Attributes();
+
+        TerminalCell terminalCell = new TerminalCell(character, attributes);
+
+        assertEquals(character, terminalCell.getCharacter());
+        assertEquals(attributes, terminalCell.getAttributes());
+    }
