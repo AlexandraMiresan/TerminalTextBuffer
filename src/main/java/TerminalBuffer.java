@@ -70,6 +70,7 @@ public class TerminalBuffer {
             cursorX++;
 
             if(cursorX >= width){
+                line.setWrapped(true);
                 cursorX = 0;
                 cursorY++;
 
