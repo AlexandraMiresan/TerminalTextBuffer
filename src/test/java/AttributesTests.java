@@ -34,4 +34,26 @@ class AttributesTest {
         assertTrue(attributes.isUnderline());
 
     }
+
+    @Test
+    void testIndividualSetters(){
+
+        Attributes attributes = new Attributes();
+
+        attributes.setBold(true);
+        attributes.setItalic(true);
+        attributes.setUnderline(true);
+
+        assertTrue(attributes.isBold());
+        assertTrue(attributes.isItalic());
+        assertTrue(attributes.isUnderline());
+
+        attributes.setForeground(Color.CYAN);
+        assertEquals(Color.CYAN, attributes.getForeground());
+
+        attributes.setBackground(Color.YELLOW);
+        assertEquals(Color.YELLOW, attributes.getBackground());
+
+
+    }
 }
