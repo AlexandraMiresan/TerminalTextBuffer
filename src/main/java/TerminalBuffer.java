@@ -189,6 +189,17 @@ public class TerminalBuffer {
         return line.getCell(column).getAttributes();
     }
 
+    public String getLineAsString(int row){
+        TerminalLine line;
 
+        if(row < scrollback.size()){
+            line = scrollback.get(row);
+        }else{
+            int screenRow = row - scrollback.size();
+            line = screen.get(screenRow);
+        }
+
+        return line.toString();
+    }
 
 }
