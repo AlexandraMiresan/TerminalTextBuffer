@@ -26,6 +26,8 @@ public class TerminalBuffer {
         for(int i = 0; i < height; i++){
             screen.add(new TerminalLine(width));
         }
+
+        currentAttributes = new Attributes();
     }
 
     public int getCursorX() {
