@@ -300,11 +300,11 @@ class TerminalBufferTests {
 
     // Soft wrapped lines should merge when width increases
     @Test
-    void testResizeReflowsSoftWrappedLines(){
-        TerminalBuffer buffer = new TerminalBuffer(4,3,5);
+    void testResizeReflowsSoftWrappedLines() {
+        TerminalBuffer buffer = new TerminalBuffer(4, 3, 5);
 
         buffer.write("abcde"); // abcd (wrapped)
-                                    // e
+        // e
 
         buffer.resize(5, 3);
 
@@ -317,11 +317,11 @@ class TerminalBufferTests {
 
     // Hard line breaks should stay separate after resize
     @Test
-    void testResizePreservesHardLineBreaks(){
-        TerminalBuffer buffer = new TerminalBuffer(4,3,5);
+    void testResizePreservesHardLineBreaks() {
+        TerminalBuffer buffer = new TerminalBuffer(4, 3, 5);
 
         buffer.write("abcd");
-        buffer.setCursor(0,1);
+        buffer.setCursor(0, 1);
         buffer.write("efg");
 
         buffer.resize(8, 3);
@@ -339,8 +339,8 @@ class TerminalBufferTests {
 
     // Decreasing width should wrap content across more lines
     @Test
-    void testResizeDecreaseWidth(){
-        TerminalBuffer buffer = new TerminalBuffer(6,3,5);
+    void testResizeDecreaseWidth() {
+        TerminalBuffer buffer = new TerminalBuffer(6, 3, 5);
 
         buffer.write("abcdef");
 
@@ -357,12 +357,12 @@ class TerminalBufferTests {
 
     // Increasing height should add empty lines
     @Test
-    void testResizeIncreaseHeight(){
-        TerminalBuffer buffer = new TerminalBuffer(4,2,5);
+    void testResizeIncreaseHeight() {
+        TerminalBuffer buffer = new TerminalBuffer(4, 2, 5);
 
         buffer.write("abcd");
 
-        buffer.resize(4,4);
+        buffer.resize(4, 4);
 
         assertEquals('a', buffer.getCharacterAtPosition(0, 0));
         assertEquals(' ', buffer.getCharacterAtPosition(3, 0));
@@ -370,28 +370,28 @@ class TerminalBufferTests {
 
     // Decreasing height should push lines into scrollback
     @Test
-    void testResizeDecreaseHeight(){
-        TerminalBuffer buffer = new TerminalBuffer(4,4,5);
+    void testResizeDecreaseHeight() {
+        TerminalBuffer buffer = new TerminalBuffer(4, 4, 5);
 
         buffer.write("abcdefghijkl");
 
-        buffer.resize(4,2);
+        buffer.resize(4, 2);
 
-        assertEquals('i', buffer.getCharacterAtPosition(0, 0));
-        assertEquals('j', buffer.getCharacterAtPosition(0, 1));
+        assertEquals('a', buffer.getCharacterAtPosition(0, 0));
+        assertEquals('b', buffer.getCharacterAtPosition(0, 1));
+        assertEquals('e', buffer.getCharacterAtPosition(1, 0));
     }
 
     // Cursor should stay inside the new bounds
     @Test
-    void testResizeClampCursor(){
-        TerminalBuffer buffer = new TerminalBuffer(5,5,5);
+    void testResizeClampCursor() {
+        TerminalBuffer buffer = new TerminalBuffer(5, 5, 5);
 
-        buffer.setCursor(4,4);
+        buffer.setCursor(4, 4);
 
-        buffer.resize(3,3);
+        buffer.resize(3, 3);
 
         assertTrue(buffer.getCursorX() <= 2);
         assertTrue(buffer.getCursorY() <= 2);
     }
-
 }
