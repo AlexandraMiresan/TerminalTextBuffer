@@ -212,4 +212,15 @@ public class TerminalBuffer {
         return sb.toString();
     }
 
+    public String getScreenAndScrollbackAsString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(getScreenAsString());
+
+        for(var item : scrollback){
+            sb.append(item);
+        }
+
+        return sb.toString();
+    }
+
 }
