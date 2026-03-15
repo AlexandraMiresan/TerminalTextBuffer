@@ -246,9 +246,7 @@ public class TerminalBuffer {
             }
         }
 
-        if(!buffer.isEmpty()){
-            flushBuffer(buffer, newScreen, newWidth);
-        }
+        flushBuffer(buffer, newScreen, newWidth);
 
         while(newScreen.size() < newHeight){
             newScreen.add(new TerminalLine(newWidth));
