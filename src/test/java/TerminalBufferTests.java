@@ -257,3 +257,15 @@ class TerminalBufferTest {
         assertTrue(screen.contains("Hi"));
     }
 
+    @Test
+    void testGetScreenAndScrollbackAsString() {
+        TerminalBuffer buffer = new TerminalBuffer(3,2,5);
+
+        buffer.write("ABCDEF");
+
+        String text = buffer.getScreenAndScrollbackAsString();
+
+        assertNotNull(text);
+        assertFalse(text.isEmpty());
+    }
+}
