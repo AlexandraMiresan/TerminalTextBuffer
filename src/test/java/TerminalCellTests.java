@@ -1,6 +1,7 @@
-public class TerminalCellTests {
-}import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
+
 class TerminalCellTests {
 
     @Test
@@ -38,7 +39,7 @@ class TerminalCellTests {
     }
 
     @Test
-    void testGroupSetters(){
+    void testGroupSetters() {
         TerminalCell terminalCell = new TerminalCell();
         Attributes attributes = new Attributes(Color.WHITE, Color.CYAN, true, false, false);
 
