@@ -178,3 +178,20 @@ class TerminalBufferTest {
 
     }
 
+    void testClearScreen() {
+        TerminalBuffer buffer = new TerminalBuffer(4,2,5);
+
+        buffer.write("Test");
+
+        buffer.clearScreen();
+
+        for(int r=0;r<2;r++){
+            for(int c=0;c<4;c++){
+                assertEquals(' ', buffer.getCharacterAtPosition(r,c));
+            }
+        }
+
+        assertEquals(0, buffer.getCursorX());
+        assertEquals(0, buffer.getCursorY());
+    }
+
