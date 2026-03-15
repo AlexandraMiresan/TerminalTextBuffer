@@ -1,6 +1,5 @@
-public class TerminalBufferTests {
-}
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class TerminalBufferTest {
@@ -12,19 +11,19 @@ class TerminalBufferTest {
         assertEquals(0, buffer.getCursorX());
         assertEquals(0, buffer.getCursorY());
 
-        assertEquals(' ', buffer.getCharacterAtPosition(0,0));
+        assertEquals(' ', buffer.getCharacterAtPosition(0, 0));
     }
 
     @Test
     void testCursorSettersClampValues() {
-        TerminalBuffer buffer = new TerminalBuffer(4,3,5);
+        TerminalBuffer buffer = new TerminalBuffer(4, 3, 5);
 
-        buffer.setCursor(100,100);
+        buffer.setCursor(100, 100);
 
         assertEquals(3, buffer.getCursorX());
         assertEquals(2, buffer.getCursorY());
 
-        buffer.setCursor(-5,-5);
+        buffer.setCursor(-5, -5);
 
         assertEquals(0, buffer.getCursorX());
         assertEquals(0, buffer.getCursorY());
@@ -32,7 +31,7 @@ class TerminalBufferTest {
 
     @Test
     void testCursorMovement() {
-        TerminalBuffer buffer = new TerminalBuffer(5,3,5);
+        TerminalBuffer buffer = new TerminalBuffer(5, 3, 5);
 
         buffer.moveCursorRight(3);
         assertEquals(3, buffer.getCursorX());
@@ -49,33 +48,33 @@ class TerminalBufferTest {
 
     @Test
     void testWriteSimple() {
-        TerminalBuffer buffer = new TerminalBuffer(5,3,5);
+        TerminalBuffer buffer = new TerminalBuffer(5, 3, 5);
 
         buffer.write("Hi");
 
-        assertEquals('H', buffer.getCharacterAtPosition(0,0));
-        assertEquals('i', buffer.getCharacterAtPosition(0,1));
+        assertEquals('H', buffer.getCharacterAtPosition(0, 0));
+        assertEquals('i', buffer.getCharacterAtPosition(0, 1));
     }
 
     @Test
     void testWriteWrapToNextLine() {
-        TerminalBuffer buffer = new TerminalBuffer(5,3,5);
+        TerminalBuffer buffer = new TerminalBuffer(5, 3, 5);
 
         buffer.write("ABCDEF");
         buffer.write("F");
 
-        assertEquals('F', buffer.getCharacterAtPosition(1,0));
+        assertEquals('F', buffer.getCharacterAtPosition(1, 0));
     }
 
     @Test
     void testWriteScroll() {
-        TerminalBuffer buffer = new TerminalBuffer(3,2,5);
+        TerminalBuffer buffer = new TerminalBuffer(3, 2, 5);
 
         buffer.write("ABCDEF");
 
-        assertEquals('A', buffer.getCharacterAtPosition(0,0));
-        assertEquals('B', buffer.getCharacterAtPosition(0,1));
-        assertEquals('C', buffer.getCharacterAtPosition(0,2));
+        assertEquals('A', buffer.getCharacterAtPosition(0, 0));
+        assertEquals('B', buffer.getCharacterAtPosition(0, 1));
+        assertEquals('C', buffer.getCharacterAtPosition(0, 2));
     }
 
     @Test
@@ -85,9 +84,9 @@ class TerminalBufferTest {
 
         buffer.insertText("ABC");
 
-        assertEquals('A', buffer.getCharacterAtPosition(0,0));
-        assertEquals('B', buffer.getCharacterAtPosition(0,1));
-        assertEquals('C', buffer.getCharacterAtPosition(0,2));
+        assertEquals('A', buffer.getCharacterAtPosition(0, 0));
+        assertEquals('B', buffer.getCharacterAtPosition(0, 1));
+        assertEquals('C', buffer.getCharacterAtPosition(0, 2));
 
         assertEquals(3, buffer.getCursorX());
         assertEquals(0, buffer.getCursorY());
@@ -100,11 +99,11 @@ class TerminalBufferTest {
 
         buffer.insertText("ABCD");
 
-        assertEquals('A', buffer.getCharacterAtPosition(0,0));
-        assertEquals('B', buffer.getCharacterAtPosition(0,1));
-        assertEquals('C', buffer.getCharacterAtPosition(0,2));
+        assertEquals('A', buffer.getCharacterAtPosition(0, 0));
+        assertEquals('B', buffer.getCharacterAtPosition(0, 1));
+        assertEquals('C', buffer.getCharacterAtPosition(0, 2));
 
-        assertEquals('D', buffer.getCharacterAtPosition(1,0));
+        assertEquals('D', buffer.getCharacterAtPosition(1, 0));
 
         assertEquals(1, buffer.getCursorX());
         assertEquals(1, buffer.getCursorY());
@@ -117,22 +116,22 @@ class TerminalBufferTest {
 
         buffer.insertText("ABCDEFG");
 
-        assertEquals('A', buffer.getCharacterAtPosition(0,0));
-        assertEquals('B', buffer.getCharacterAtPosition(0,1));
-        assertEquals('C', buffer.getCharacterAtPosition(0,2));
+        assertEquals('A', buffer.getCharacterAtPosition(0, 0));
+        assertEquals('B', buffer.getCharacterAtPosition(0, 1));
+        assertEquals('C', buffer.getCharacterAtPosition(0, 2));
 
-        assertEquals('D', buffer.getCharacterAtPosition(1,0));
+        assertEquals('D', buffer.getCharacterAtPosition(1, 0));
     }
 
 
     @Test
     void testFillLine() {
-        TerminalBuffer buffer = new TerminalBuffer(4,2,5);
+        TerminalBuffer buffer = new TerminalBuffer(4, 2, 5);
 
         buffer.fillLine('*');
 
-        for(int i = 0; i < 4; i++) {
-            assertEquals('*', buffer.getCharacterAtPosition(0,i));
+        for (int i = 0; i < 4; i++) {
+            assertEquals('*', buffer.getCharacterAtPosition(0, i));
         }
     }
 
@@ -144,28 +143,28 @@ class TerminalBufferTest {
 
         buffer.write("GHI");
 
-        char firstScrollbackChar = buffer.getCharacterAtPosition(0,0);
+        char firstScrollbackChar = buffer.getCharacterAtPosition(0, 0);
 
         assertEquals('D', firstScrollbackChar);
     }
 
     @Test
     void testInsertEmptyLineAtBottom() {
-        TerminalBuffer buffer = new TerminalBuffer(4,2,5);
+        TerminalBuffer buffer = new TerminalBuffer(4, 2, 5);
 
         buffer.write("AAAA");
-        buffer.setCursor(0,1);
+        buffer.setCursor(0, 1);
         buffer.write("BBBB");
 
         buffer.insertEmptyLineAtBottom();
 
-        assertEquals('A', buffer.getCharacterAtPosition(0,0));
-        assertEquals('B', buffer.getCharacterAtPosition(1,0));
-        assertEquals(' ',  buffer.getCharacterAtPosition(2,0));
+        assertEquals('A', buffer.getCharacterAtPosition(0, 0));
+        assertEquals('B', buffer.getCharacterAtPosition(1, 0));
+        assertEquals(' ', buffer.getCharacterAtPosition(2, 0));
     }
 
     @Test
-    void testInsertEmptyLineAtBottomRemovesScrollbackLine(){
+    void testInsertEmptyLineAtBottomRemovesScrollbackLine() {
         TerminalBuffer buffer = new TerminalBuffer(4, 1, 1);
 
         buffer.write("AAAA");
@@ -173,21 +172,31 @@ class TerminalBufferTest {
 
         buffer.insertEmptyLineAtBottom();
 
-        assertEquals(' ', buffer.getCharacterAtPosition(0,0));
-        assertEquals(' ',  buffer.getCharacterAtPosition(1,0));
+        assertEquals(' ', buffer.getCharacterAtPosition(0, 0));
+        assertEquals(' ', buffer.getCharacterAtPosition(1, 0));
 
     }
 
+    @Test
+    void testScrollbackOverflow() {
+        TerminalBuffer buffer = new TerminalBuffer(3, 2, 1);
+
+        buffer.write("ABCDEF");
+
+        assertEquals('A', buffer.getCharacterAtPosition(0, 0));
+    }
+
+    @Test
     void testClearScreen() {
-        TerminalBuffer buffer = new TerminalBuffer(4,2,5);
+        TerminalBuffer buffer = new TerminalBuffer(4, 2, 5);
 
         buffer.write("Test");
 
         buffer.clearScreen();
 
-        for(int r=0;r<2;r++){
-            for(int c=0;c<4;c++){
-                assertEquals(' ', buffer.getCharacterAtPosition(r,c));
+        for (int r = 0; r < 2; r++) {
+            for (int c = 0; c < 4; c++) {
+                assertEquals(' ', buffer.getCharacterAtPosition(r, c));
             }
         }
 
@@ -197,47 +206,47 @@ class TerminalBufferTest {
 
     @Test
     void testClearScreenAndScrollback() {
-        TerminalBuffer buffer = new TerminalBuffer(4,2,5);
+        TerminalBuffer buffer = new TerminalBuffer(4, 2, 5);
 
         buffer.write("Test");
         buffer.insertEmptyLineAtBottom();
 
         buffer.clearScreenAndScrollback();
 
-        for(int r=0;r<2;r++){
-            for(int c=0;c<4;c++){
-                assertEquals(' ', buffer.getCharacterAtPosition(r,c));
+        for (int r = 0; r < 2; r++) {
+            for (int c = 0; c < 4; c++) {
+                assertEquals(' ', buffer.getCharacterAtPosition(r, c));
             }
         }
     }
 
     @Test
     void testGetAttributesAtPositionFromScreen() {
-        TerminalBuffer buffer = new TerminalBuffer(4,2,5);
+        TerminalBuffer buffer = new TerminalBuffer(4, 2, 5);
 
         buffer.write("A");
 
-        Attributes attributes = buffer.getAttributesAtPosition(0,0);
+        Attributes attributes = buffer.getAttributesAtPosition(0, 0);
 
         assertNotNull(attributes);
     }
 
     @Test
-    void testGetAttributesAtPositionFromScrollback(){
-        TerminalBuffer buffer = new TerminalBuffer(4,2,5);
+    void testGetAttributesAtPositionFromScrollback() {
+        TerminalBuffer buffer = new TerminalBuffer(4, 2, 5);
 
-        for(int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             buffer.write("AAAA");
         }
 
-        Attributes attributes = buffer.getAttributesAtPosition(0,0);
+        Attributes attributes = buffer.getAttributesAtPosition(0, 0);
 
         assertNotNull(attributes);
     }
 
     @Test
     void testGetLineAsString() {
-        TerminalBuffer buffer = new TerminalBuffer(5,2,5);
+        TerminalBuffer buffer = new TerminalBuffer(5, 2, 5);
 
         buffer.write("Hello");
 
@@ -248,7 +257,7 @@ class TerminalBufferTest {
 
     @Test
     void testGetScreenAsString() {
-        TerminalBuffer buffer = new TerminalBuffer(5,2,5);
+        TerminalBuffer buffer = new TerminalBuffer(5, 2, 5);
 
         buffer.write("Hi");
 
@@ -259,7 +268,7 @@ class TerminalBufferTest {
 
     @Test
     void testGetScreenAndScrollbackAsString() {
-        TerminalBuffer buffer = new TerminalBuffer(3,2,5);
+        TerminalBuffer buffer = new TerminalBuffer(3, 2, 5);
 
         buffer.write("ABCDEF");
 
