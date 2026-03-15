@@ -18,4 +18,27 @@ class TerminalLineTests {
             assertEquals(' ', line.getCell(i).getCharacter());
         }
     }
+
+    @Test
+    void testIndividualSetters(){
+        TerminalLine line = new TerminalLine(5);
+        List<TerminalCell> cells = new ArrayList<>();
+        TerminalCell cell = new TerminalCell();
+
+        for(int i = 0; i < 6; i++){
+            cells.add(cell);
+        }
+
+        line.setLine(cells);
+        assertEquals(cells.size(), getLineSize(line));
+
+        assertEquals(cells, line.getLine());
+
+        Attributes attributes = new Attributes();
+        TerminalCell cell2 = new TerminalCell('a', attributes);
+        line.setCell(0, cell2);
+        assertEquals('a', line.getCell(0).getCharacter());
+        assertEquals(attributes, line.getCell(0).getAttributes());
+
+    }
 }
