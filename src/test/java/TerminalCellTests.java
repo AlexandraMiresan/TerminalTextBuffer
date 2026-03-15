@@ -66,3 +66,13 @@ class TerminalCellTests {
         assertEquals(underline, terminalCell.getAttributes().isUnderline());
     }
 
+    @Test
+    void testToString() {
+        Attributes attributes = new Attributes();
+        TerminalCell terminalCell = new TerminalCell('a', attributes);
+
+        String terminalCellString = terminalCell.toString();
+
+        assertEquals("a", terminalCellString);
+    }
+}
