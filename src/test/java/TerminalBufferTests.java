@@ -222,3 +222,16 @@ class TerminalBufferTest {
         assertNotNull(attributes);
     }
 
+    @Test
+    void testGetAttributesAtPositionFromScrollback(){
+        TerminalBuffer buffer = new TerminalBuffer(4,2,5);
+
+        for(int i = 0; i < 3; i++) {
+            buffer.write("AAAA");
+        }
+
+        Attributes attributes = buffer.getAttributesAtPosition(0,0);
+
+        assertNotNull(attributes);
+    }
+
