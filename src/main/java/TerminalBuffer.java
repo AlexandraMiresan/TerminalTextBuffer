@@ -226,4 +226,62 @@ public class TerminalBuffer {
         return sb.toString();
     }
 
+    public void resize(int newWidth, int newHeight){
+        List<TerminalLine> newScreen = new ArrayList<>();
+        List<TerminalCell> buffer = new ArrayList<>();
+
+        for(TerminalLine line : screen){
+            for(int i = 0; i < width; i++){
+                buffer.add(line.getCell(i));
+            }
+
+            if(!line.isWrapped()){
+                flushBuffer(buffer, newScreen, newWidth);
+            }
+        }
+
+        flushBuffer(buffer, newScreen, newWidth);
+
+        while(newScreen.size() < newHeight){
+            newScreen.add(new TerminalLine(newWidth));
+        }
+
+        while(newScreen.size() > newHeight){
+            TerminalLine removed = newScreen.removeFirst();
+
+            scrollback.add(removed);
+
+            if(scrollback.size() > scrollbackMaxSize){
+                scrollback.removeFirst();
+            }
+        }
+
+        screen = newScreen;
+
+        width = newWidth;
+        height = newHeight;
+
+        cursorX = Math.min(cursorX, width - 1);
+        cursorY = Math.min(cursorY, height - 1);
+    }
+
+    private void flushBuffer(List<TerminalCell> buffer, List<TerminalLine> newScreen, int newWidth){
+        int index = 0;
+        while(index < buffer.size()){
+            TerminalLine newLine = new TerminalLine(newWidth);
+
+            for(int i = 0; i < newWidth && index < buffer.size(); i++){
+                newLine.setCell(i, buffer.get(index++));
+            }
+
+            if(index < buffer.size()){
+                newLine.setWrapped(true);
+            }
+
+            newScreen.add(newLine);
+        }
+
+        buffer.clear();
+    }
+
 }
