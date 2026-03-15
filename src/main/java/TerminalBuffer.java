@@ -60,7 +60,9 @@ public class TerminalBuffer {
     }
 
     public void write(String text){
-        for(char character : text.toCharArray()){
+        for(int i = 0; i < text.length(); i++){
+            char character = text.charAt(i);
+
             TerminalLine line = screen.get(cursorY);
             TerminalCell cell = line.getCell(cursorX);
 
@@ -70,7 +72,11 @@ public class TerminalBuffer {
             cursorX++;
 
             if(cursorX >= width){
-                line.setWrapped(true);
+
+                if(i < text.length() - 1){
+                    line.setWrapped(true);
+                }
+
                 cursorX = 0;
                 cursorY++;
 
