@@ -78,3 +78,18 @@ class TerminalBufferTest {
         assertEquals('C', buffer.getCharacterAtPosition(0,2));
     }
 
+    @Test
+    void testInsertTextNoWrap() {
+
+        TerminalBuffer buffer = new TerminalBuffer(5, 3, 5);
+
+        buffer.insertText("ABC");
+
+        assertEquals('A', buffer.getCharacterAtPosition(0,0));
+        assertEquals('B', buffer.getCharacterAtPosition(0,1));
+        assertEquals('C', buffer.getCharacterAtPosition(0,2));
+
+        assertEquals(3, buffer.getCursorX());
+        assertEquals(0, buffer.getCursorY());
+    }
+
