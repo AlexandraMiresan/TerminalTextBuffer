@@ -56,4 +56,38 @@ class AttributesTest {
 
 
     }
+
+    @Test
+    void testGroupSetters(){
+
+        Attributes attributes = new Attributes();
+
+        Color foreground = Color.MAGENTA;
+        Color background = Color.YELLOW;
+        boolean bold = false;
+        boolean italic = true;
+        boolean underline = true;
+
+        attributes.setAttributes(foreground, background, bold, italic, underline);
+
+        assertEquals(foreground, attributes.getForeground());
+        assertEquals(background, attributes.getBackground());
+
+        assertFalse(attributes.isBold());
+        assertTrue(attributes.isItalic());
+        assertTrue(attributes.isUnderline());
+
+        Attributes newAttributes = new Attributes();
+
+        newAttributes.setAttributes(attributes);
+
+        assertEquals(foreground, newAttributes.getForeground());
+        assertEquals(background, newAttributes.getBackground());
+
+        assertFalse(newAttributes.isBold());
+        assertTrue(newAttributes.isItalic());
+        assertTrue(newAttributes.isUnderline());
+
+    }
+
 }
