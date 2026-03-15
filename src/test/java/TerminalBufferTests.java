@@ -93,3 +93,20 @@ class TerminalBufferTest {
         assertEquals(0, buffer.getCursorY());
     }
 
+    @Test
+    void testInsertTextWrapToNextLine() {
+
+        TerminalBuffer buffer = new TerminalBuffer(3, 3, 5);
+
+        buffer.insertText("ABCD");
+
+        assertEquals('A', buffer.getCharacterAtPosition(0,0));
+        assertEquals('B', buffer.getCharacterAtPosition(0,1));
+        assertEquals('C', buffer.getCharacterAtPosition(0,2));
+
+        assertEquals('D', buffer.getCharacterAtPosition(1,0));
+
+        assertEquals(1, buffer.getCursorX());
+        assertEquals(1, buffer.getCursorY());
+    }
+
