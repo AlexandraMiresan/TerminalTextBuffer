@@ -2,7 +2,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TerminalBufferTest {
+class TerminalBufferTests {
 
     // Tests that the buffer initializes with cursor at (0,0) and empty spaces.
     @Test
