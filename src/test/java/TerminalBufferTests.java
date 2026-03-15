@@ -56,3 +56,14 @@ class TerminalBufferTest {
         assertEquals('H', buffer.getCharacterAtPosition(0,0));
         assertEquals('i', buffer.getCharacterAtPosition(0,1));
     }
+
+    @Test
+    void testWriteWrapToNextLine() {
+        TerminalBuffer buffer = new TerminalBuffer(5,3,5);
+
+        buffer.write("ABCDEF");
+        buffer.write("F");
+
+        assertEquals('F', buffer.getCharacterAtPosition(1,0));
+    }
+
