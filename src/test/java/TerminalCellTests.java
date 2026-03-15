@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TerminalCellTests {
 
+    // Verifies the default constructor initializes a space character and default attributes.
     @Test
     void testDefaultConstructor() {
         TerminalCell terminalCell = new TerminalCell();
@@ -18,6 +19,7 @@ class TerminalCellTests {
         assertFalse(attributes.isUnderline());
     }
 
+    // Tests that the parameterized constructor correctly stores character and attributes.
     @Test
     void testConstructorWithParameters() {
         char character = 'a';
@@ -29,6 +31,7 @@ class TerminalCellTests {
         assertEquals(attributes, terminalCell.getAttributes());
     }
 
+    // Ensures the character setter correctly updates the stored character.
     @Test
     void testIndividualSetters() {
         TerminalCell terminalCell = new TerminalCell();
@@ -38,6 +41,7 @@ class TerminalCellTests {
         assertEquals(character, terminalCell.getCharacter());
     }
 
+    // Tests setting attributes both via an Attributes object and individual parameters.
     @Test
     void testGroupSetters() {
         TerminalCell terminalCell = new TerminalCell();
@@ -67,6 +71,7 @@ class TerminalCellTests {
         assertEquals(underline, terminalCell.getAttributes().isUnderline());
     }
 
+    // Verifies the string representation returns the stored character.
     @Test
     void testToString() {
         Attributes attributes = new Attributes();
