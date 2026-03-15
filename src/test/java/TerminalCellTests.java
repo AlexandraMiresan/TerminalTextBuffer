@@ -27,3 +27,13 @@ class TerminalCellTests {
         assertEquals(character, terminalCell.getCharacter());
         assertEquals(attributes, terminalCell.getAttributes());
     }
+
+    @Test
+    void testIndividualSetters() {
+        TerminalCell terminalCell = new TerminalCell();
+        char character = 'a';
+
+        terminalCell.setCharacter(character);
+        assertEquals(character, terminalCell.getCharacter());
+    }
+
