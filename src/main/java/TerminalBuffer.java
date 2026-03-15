@@ -163,4 +163,18 @@ public class TerminalBuffer {
         clearScrollback();
     }
 
+    public char getCharacterAtPosition(int row, int column){
+        TerminalLine line;
+
+        if(row < scrollback.size()){
+            line = scrollback.get(row);
+        }else{
+            int screenRow = row - scrollback.size();
+            line = screen.get(screenRow);
+        }
+
+        return line.getCell(column).getCharacter();
+    }
+    
+
 }
