@@ -407,6 +407,17 @@ class TerminalBufferTests {
         assertEquals(" ", buffer.getCharacterAtPosition(0,1));
     }
 
+    // Cursor should move two positions after writing a wide character
+    @Test
+    void testCursorMovesTwoCellsForWideCharacter() {
+
+        TerminalBuffer buffer = new TerminalBuffer(6, 3, 5);
+
+        buffer.write("你");
+
+        assertEquals(2, buffer.getCursorX());
+    }
+
     // Writing a normal character after a wide character should continue correctly
     @Test
     void testWriteWideThenNormalCharacter() {
