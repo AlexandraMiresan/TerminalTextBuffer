@@ -10,13 +10,15 @@ class TerminalCellTests {
         TerminalCell terminalCell = new TerminalCell();
         Attributes attributes = new Attributes();
 
-        assertEquals(' ', terminalCell.getCharacter());
+        assertEquals(' ', terminalCell.getCodePoint());
         assertEquals(Color.DEFAULT, attributes.getForeground());
         assertEquals(Color.DEFAULT, attributes.getBackground());
 
         assertFalse(attributes.isBold());
         assertFalse(attributes.isItalic());
         assertFalse(attributes.isUnderline());
+
+        assertFalse(terminalCell.isWideCharacter());
     }
 
     // Tests that the parameterized constructor correctly stores character and attributes.
@@ -27,18 +29,23 @@ class TerminalCellTests {
 
         TerminalCell terminalCell = new TerminalCell(character, attributes);
 
-        assertEquals(character, terminalCell.getCharacter());
+        assertEquals(character, terminalCell.getCodePoint());
         assertEquals(attributes, terminalCell.getAttributes());
+
+        assertFalse(terminalCell.isWideCharacter());
     }
 
     // Ensures the character setter correctly updates the stored character.
     @Test
     void testIndividualSetters() {
         TerminalCell terminalCell = new TerminalCell();
-        char character = 'a';
+        char character = '你';
 
         terminalCell.setCharacter(character);
-        assertEquals(character, terminalCell.getCharacter());
+        terminalCell.setWideCharacter(true);
+        assertEquals(character, terminalCell.getCodePoint());
+        assertTrue(terminalCell.isWideCharacter());
+
     }
 
     // Tests setting attributes both via an Attributes object and individual parameters.
