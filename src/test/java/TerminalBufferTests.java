@@ -394,4 +394,53 @@ class TerminalBufferTests {
         assertTrue(buffer.getCursorX() <= 2);
         assertTrue(buffer.getCursorY() <= 2);
     }
+
+    // Wide characters should occupy two cells
+    @Test
+    void testWriteWideCharacterTakesTwoCells() {
+
+        TerminalBuffer buffer = new TerminalBuffer(6, 3, 5);
+
+        buffer.write("你");
+
+        assertEquals("你", buffer.getCharacterAtPosition(0,0));
+        assertEquals(" ", buffer.getCharacterAtPosition(0,1));
+    }
+
+    // Writing a normal character after a wide character should continue correctly
+    @Test
+    void testWriteWideThenNormalCharacter() {
+
+        TerminalBuffer buffer = new TerminalBuffer(6, 3, 5);
+
+        buffer.write("你A");
+
+        assertEquals("你", buffer.getCharacterAtPosition(0,0));
+        assertEquals("A", buffer.getCharacterAtPosition(0,2));
+    }
+
+    // Wide character should wrap correctly if it doesn't fit at end of line
+    @Test
+    void testWideCharacterWrapsToNextLine() {
+
+        TerminalBuffer buffer = new TerminalBuffer(4, 3, 5);
+
+        buffer.write("ABC你");
+
+        assertEquals("A", buffer.getCharacterAtPosition(0,0));
+        assertEquals("B", buffer.getCharacterAtPosition(0,1));
+        assertEquals("C", buffer.getCharacterAtPosition(0,2));
+
+        assertEquals("你", buffer.getCharacterAtPosition(1,0));
+    }
+    // Wide characters should also work in scrollback
+    @Test
+    void testWideCharactersScrollCorrectly() {
+
+        TerminalBuffer buffer = new TerminalBuffer(4,2,5);
+
+        buffer.write("你你你你你");
+
+        assertEquals("你", buffer.getCharacterAtPosition(0,0));
+    }
 }
