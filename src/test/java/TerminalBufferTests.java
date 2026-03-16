@@ -444,6 +444,21 @@ class TerminalBufferTests {
 
         assertEquals("你", buffer.getCharacterAtPosition(1,0));
     }
+    // Resize should not split wide characters
+    @Test
+    void testResizePreservesWideCharacters() {
+
+        TerminalBuffer buffer = new TerminalBuffer(4, 3, 5);
+
+        buffer.write("A你B");
+
+        buffer.resize(6,3);
+
+        assertEquals("A", buffer.getCharacterAtPosition(0,0));
+        assertEquals("你", buffer.getCharacterAtPosition(0,1));
+        assertEquals("B", buffer.getCharacterAtPosition(0,3));
+    }
+
     // Wide characters should also work in scrollback
     @Test
     void testWideCharactersScrollCorrectly() {
