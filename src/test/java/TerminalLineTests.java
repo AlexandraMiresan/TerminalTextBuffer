@@ -19,7 +19,7 @@ class TerminalLineTests {
         assertEquals(5, getLineSize(line));
 
         for(int i = 0; i < getLineSize(line); i++){
-            assertEquals(' ', line.getCell(i).getCharacter());
+            assertEquals(' ', line.getCell(i).getCodePoint());
         }
     }
 
@@ -34,15 +34,17 @@ class TerminalLineTests {
             cells.add(cell);
         }
 
+        line.setWrapped(true);
         line.setLine(cells);
         assertEquals(cells.size(), getLineSize(line));
 
         assertEquals(cells, line.getLine());
+        assertTrue(line.isWrapped());
 
         Attributes attributes = new Attributes();
         TerminalCell cell2 = new TerminalCell('a', attributes);
         line.setCell(0, cell2);
-        assertEquals('a', line.getCell(0).getCharacter());
+        assertEquals('a', line.getCell(0).getCodePoint());
         assertEquals(attributes, line.getCell(0).getAttributes());
 
     }
