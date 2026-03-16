@@ -60,31 +60,63 @@ public class TerminalBuffer {
     }
 
     public void write(String text){
-        for(int i = 0; i < text.length(); i++){
-            char character = text.charAt(i);
+        for(int i = 0; i < text.length();){
+
+            int codePoint = text.codePointAt(i);
+            boolean wide = isWideCharacter(codePoint);
 
             TerminalLine line = screen.get(cursorY);
             TerminalCell cell = line.getCell(cursorX);
 
-            cell.setCharacter(character);
-            cell.setCellAttributes(currentAttributes);
 
-            cursorX++;
+           if(wide){
+               if(cursorX + 1 >= width){
+                   line.setWrapped(true);
 
-            if(cursorX >= width){
+                   cursorX = 0;
+                   cursorY++;
 
-                if(i < text.length() - 1){
-                    line.setWrapped(true);
-                }
+                   if(cursorY >= height){
+                       scroll();
+                       cursorY = height - 1;
+                   }
 
-                cursorX = 0;
-                cursorY++;
+                   line = screen.get(cursorY);
+                   cell = line.getCell(cursorX);
+               }
 
-                if(cursorY >= height){
-                    scroll();
-                    cursorY = height - 1;
-                }
-            }
+               cell.setCharacter(codePoint);
+               cell.setCellAttributes(currentAttributes);
+               cell.setWideCharacter(false);
+
+               TerminalCell continuation = line.getCell(cursorX + 1);
+               continuation.setCharacter(' ');
+               continuation.setCellAttributes(currentAttributes);
+               continuation.setWideCharacter(true);
+
+               cursorX += 2;
+           }else{
+               cell.setCharacter(codePoint);
+               cell.setCellAttributes(currentAttributes);
+               cell.setWideCharacter(false);
+               cursorX += 1;
+           }
+
+           if(cursorX >= width){
+               if(i < text.length() - Character.charCount(codePoint)){
+                   line.setWrapped(true);
+               }
+
+               cursorX = 0;
+               cursorY++;
+
+               if(cursorY >= height){
+                   scroll();
+                   cursorY = height - 1;
+               }
+           }
+
+           i += Character.charCount(codePoint);
         }
     }
 
