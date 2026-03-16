@@ -221,14 +221,40 @@ public class TerminalBuffer {
 
     }
 
-    public void fillLine(char character){
+    public void fillLine(int codePoint){
         TerminalLine line = screen.get(cursorY);
 
-        for(int i = 0; i < width; i++){
+        boolean wide = isWideCharacter(codePoint);
+
+        int i = 0;
+
+        while(i < width){
             TerminalCell cell = line.getCell(i);
 
-            cell.setCharacter(character);
-            cell.setCellAttributes(currentAttributes);
+            if(wide){
+                if(i == width - 1){
+                    cell.setCharacter(' ');
+                    cell.setWideCharacter(false);
+                    break;
+                }
+
+                cell.setCharacter(codePoint);
+                cell.setCellAttributes(currentAttributes);
+                cell.setWideCharacter(true);
+
+                TerminalCell continuation = line.getCell(i + 1);
+                continuation.setCharacter(' ');
+                continuation.setCellAttributes(currentAttributes);
+                continuation.setWideCharacter(true);
+
+                i += 2;
+            }else{
+                cell.setCharacter(codePoint);
+                cell.setCellAttributes(currentAttributes);
+                cell.setWideCharacter(false);
+
+                i += 1;
+            }
         }
     }
 
