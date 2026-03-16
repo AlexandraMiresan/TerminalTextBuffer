@@ -153,14 +153,72 @@ public class TerminalBuffer {
         }
     }
 
-    private void insertCharacter(char character){
-        TerminalLine line = screen.get(cursorY);
+    private void insertCharacter(int codePoint){
+       boolean wide = isWideCharacter(codePoint);
+       int charWidth = wide ? 2 : 1;
 
-        for(int i = width - 1; i > cursorX; i--){
-            line.setCell(i, line.getCell(i - 1));
-        }
+       if(cursorX >= width){
+           cursorX = width -1;
+       }
 
-        line.setCell(cursorX, new TerminalCell(character, currentAttributes));
+       TerminalLine line = screen.get(cursorY);
+
+       if(line.getCell(cursorX).isWideCharacter() && cursorX > 0){
+           cursorX--;
+       }
+
+       if(cursorX + charWidth > width){
+           line.setWrapped(true);
+           cursorX = 0;
+           cursorY++;
+
+           if(cursorY >= height){
+               scroll();
+               cursorY = height - 1;
+           }
+
+           line = screen.get(cursorY);
+       }
+
+       for(int i = width - 1; i >= cursorX + charWidth; i--){
+           TerminalCell source = line.getCell(i - charWidth);
+
+           TerminalCell copy = new TerminalCell(
+                   source.getCodePoint(),
+                   source.getAttributes()
+           );
+
+           copy.setWideCharacter(source.isWideCharacter());
+
+           line.setCell(i, copy);
+       }
+
+       TerminalCell first = line.getCell(cursorX);
+       first.setCharacter(codePoint);
+       first.setCellAttributes(currentAttributes);
+       first.setWideCharacter(false);
+
+       if(wide){
+           if(cursorX + 1 < width) {
+               TerminalCell continuation = line.getCell(cursorX + 1);
+               continuation.setCharacter(' ');
+               continuation.setCellAttributes(currentAttributes);
+               continuation.setWideCharacter(true);
+           }
+       }
+
+       cursorX += charWidth;
+
+       if(cursorX >= width){
+           cursorX = 0;
+           cursorY++;
+
+           if(cursorY >= height){
+               scroll();
+               cursorY = height - 1;
+           }
+       }
+
     }
 
     public void fillLine(char character){
