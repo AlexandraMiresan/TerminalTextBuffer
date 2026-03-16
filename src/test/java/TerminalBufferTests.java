@@ -444,6 +444,23 @@ class TerminalBufferTests {
 
         assertEquals("你", buffer.getCharacterAtPosition(1,0));
     }
+
+    // Insert wide character should shift text correctly
+    @Test
+    void testInsertWideCharacter() {
+
+        TerminalBuffer buffer = new TerminalBuffer(6, 3, 5);
+
+        buffer.write("ABC");
+        buffer.setCursor(1,0);
+
+        buffer.insertText("你");
+
+        assertEquals("A", buffer.getCharacterAtPosition(0,0));
+        assertEquals("你", buffer.getCharacterAtPosition(0,1));
+        assertEquals("B", buffer.getCharacterAtPosition(0,3));
+    }
+
     // Filling line with wide characters
     @Test
     void testFillLineWithWideCharacters() {
