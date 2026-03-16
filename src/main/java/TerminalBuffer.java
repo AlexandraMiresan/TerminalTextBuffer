@@ -290,7 +290,7 @@ public class TerminalBuffer {
         clearScrollback();
     }
 
-    public char getCharacterAtPosition(int row, int column){
+    public String getCharacterAtPosition(int row, int column){
         TerminalLine line;
 
         if(row < scrollback.size()){
@@ -300,7 +300,7 @@ public class TerminalBuffer {
             line = screen.get(screenRow);
         }
 
-        return line.getCell(column).getCharacter();
+        return new String(Character.toChars(line.getCell(column).getCodePoint()));
     }
 
     public Attributes getAttributesAtPosition(int row, int column){
