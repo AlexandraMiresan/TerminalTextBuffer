@@ -12,7 +12,7 @@ class TerminalBufferTests {
         assertEquals(0, buffer.getCursorX());
         assertEquals(0, buffer.getCursorY());
 
-        assertEquals(' ', buffer.getCharacterAtPosition(0, 0));
+        assertEquals(" ", buffer.getCharacterAtPosition(0, 0));
     }
 
     // Ensures cursor positions are clamped within screen bounds.
@@ -56,8 +56,8 @@ class TerminalBufferTests {
 
         buffer.write("Hi");
 
-        assertEquals('H', buffer.getCharacterAtPosition(0, 0));
-        assertEquals('i', buffer.getCharacterAtPosition(0, 1));
+        assertEquals("H", buffer.getCharacterAtPosition(0, 0));
+        assertEquals("i", buffer.getCharacterAtPosition(0, 1));
     }
 
     // Ensures writing past line width wraps to the next line.
@@ -68,7 +68,7 @@ class TerminalBufferTests {
         buffer.write("ABCDEF");
         buffer.write("F");
 
-        assertEquals('F', buffer.getCharacterAtPosition(1, 0));
+        assertEquals("F", buffer.getCharacterAtPosition(1, 0));
     }
 
     // Tests that writing beyond the screen height triggers scrolling.
@@ -78,9 +78,9 @@ class TerminalBufferTests {
 
         buffer.write("ABCDEF");
 
-        assertEquals('A', buffer.getCharacterAtPosition(0, 0));
-        assertEquals('B', buffer.getCharacterAtPosition(0, 1));
-        assertEquals('C', buffer.getCharacterAtPosition(0, 2));
+        assertEquals("A", buffer.getCharacterAtPosition(0, 0));
+        assertEquals("B", buffer.getCharacterAtPosition(0, 1));
+        assertEquals("C", buffer.getCharacterAtPosition(0, 2));
     }
 
     // Verifies text insertion without wrapping updates characters and cursor.
@@ -91,9 +91,9 @@ class TerminalBufferTests {
 
         buffer.insertText("ABC");
 
-        assertEquals('A', buffer.getCharacterAtPosition(0, 0));
-        assertEquals('B', buffer.getCharacterAtPosition(0, 1));
-        assertEquals('C', buffer.getCharacterAtPosition(0, 2));
+        assertEquals("A", buffer.getCharacterAtPosition(0, 0));
+        assertEquals("B", buffer.getCharacterAtPosition(0, 1));
+        assertEquals("C", buffer.getCharacterAtPosition(0, 2));
 
         assertEquals(3, buffer.getCursorX());
         assertEquals(0, buffer.getCursorY());
@@ -107,11 +107,11 @@ class TerminalBufferTests {
 
         buffer.insertText("ABCD");
 
-        assertEquals('A', buffer.getCharacterAtPosition(0, 0));
-        assertEquals('B', buffer.getCharacterAtPosition(0, 1));
-        assertEquals('C', buffer.getCharacterAtPosition(0, 2));
+        assertEquals("A", buffer.getCharacterAtPosition(0, 0));
+        assertEquals("B", buffer.getCharacterAtPosition(0, 1));
+        assertEquals("C", buffer.getCharacterAtPosition(0, 2));
 
-        assertEquals('D', buffer.getCharacterAtPosition(1, 0));
+        assertEquals("D", buffer.getCharacterAtPosition(1, 0));
 
         assertEquals(1, buffer.getCursorX());
         assertEquals(1, buffer.getCursorY());
@@ -125,11 +125,11 @@ class TerminalBufferTests {
 
         buffer.insertText("ABCDEFG");
 
-        assertEquals('A', buffer.getCharacterAtPosition(0, 0));
-        assertEquals('B', buffer.getCharacterAtPosition(0, 1));
-        assertEquals('C', buffer.getCharacterAtPosition(0, 2));
+        assertEquals("A", buffer.getCharacterAtPosition(0, 0));
+        assertEquals("B", buffer.getCharacterAtPosition(0, 1));
+        assertEquals("C", buffer.getCharacterAtPosition(0, 2));
 
-        assertEquals('D', buffer.getCharacterAtPosition(1, 0));
+        assertEquals("D", buffer.getCharacterAtPosition(1, 0));
     }
 
     // Verifies fillLine replaces the entire current line with a character.
@@ -140,7 +140,7 @@ class TerminalBufferTests {
         buffer.fillLine('*');
 
         for (int i = 0; i < 4; i++) {
-            assertEquals('*', buffer.getCharacterAtPosition(0, i));
+            assertEquals("*", buffer.getCharacterAtPosition(0, i));
         }
     }
 
@@ -153,9 +153,9 @@ class TerminalBufferTests {
 
         buffer.write("GHI");
 
-        char firstScrollbackChar = buffer.getCharacterAtPosition(0, 0);
+        String firstScrollbackChar = buffer.getCharacterAtPosition(0, 0);
 
-        assertEquals('D', firstScrollbackChar);
+        assertEquals("D", firstScrollbackChar);
     }
 
     // Tests inserting an empty line at the bottom shifts lines upward.
@@ -169,9 +169,9 @@ class TerminalBufferTests {
 
         buffer.insertEmptyLineAtBottom();
 
-        assertEquals('A', buffer.getCharacterAtPosition(0, 0));
-        assertEquals('B', buffer.getCharacterAtPosition(1, 0));
-        assertEquals(' ', buffer.getCharacterAtPosition(2, 0));
+        assertEquals("A", buffer.getCharacterAtPosition(0, 0));
+        assertEquals("B", buffer.getCharacterAtPosition(1, 0));
+        assertEquals(" ", buffer.getCharacterAtPosition(2, 0));
     }
 
     // Ensures inserting a line removes the oldest scrollback entry if full.
@@ -184,8 +184,8 @@ class TerminalBufferTests {
 
         buffer.insertEmptyLineAtBottom();
 
-        assertEquals(' ', buffer.getCharacterAtPosition(0, 0));
-        assertEquals(' ', buffer.getCharacterAtPosition(1, 0));
+        assertEquals(" ", buffer.getCharacterAtPosition(0, 0));
+        assertEquals(" ", buffer.getCharacterAtPosition(1, 0));
 
     }
 
@@ -196,7 +196,7 @@ class TerminalBufferTests {
 
         buffer.write("ABCDEF");
 
-        assertEquals('A', buffer.getCharacterAtPosition(0, 0));
+        assertEquals("A", buffer.getCharacterAtPosition(0, 0));
     }
 
     // Tests clearing the screen resets characters and cursor position.
@@ -210,7 +210,7 @@ class TerminalBufferTests {
 
         for (int r = 0; r < 2; r++) {
             for (int c = 0; c < 4; c++) {
-                assertEquals(' ', buffer.getCharacterAtPosition(r, c));
+                assertEquals(" ", buffer.getCharacterAtPosition(r, c));
             }
         }
 
@@ -230,7 +230,7 @@ class TerminalBufferTests {
 
         for (int r = 0; r < 2; r++) {
             for (int c = 0; c < 4; c++) {
-                assertEquals(' ', buffer.getCharacterAtPosition(r, c));
+                assertEquals(" ", buffer.getCharacterAtPosition(r, c));
             }
         }
     }
@@ -308,11 +308,11 @@ class TerminalBufferTests {
 
         buffer.resize(5, 3);
 
-        assertEquals('a', buffer.getCharacterAtPosition(0, 0));
-        assertEquals('b', buffer.getCharacterAtPosition(0, 1));
-        assertEquals('c', buffer.getCharacterAtPosition(0, 2));
-        assertEquals('d', buffer.getCharacterAtPosition(0, 3));
-        assertEquals('e', buffer.getCharacterAtPosition(0, 4));
+        assertEquals("a", buffer.getCharacterAtPosition(0, 0));
+        assertEquals("b", buffer.getCharacterAtPosition(0, 1));
+        assertEquals("c", buffer.getCharacterAtPosition(0, 2));
+        assertEquals("d", buffer.getCharacterAtPosition(0, 3));
+        assertEquals("e", buffer.getCharacterAtPosition(0, 4));
     }
 
     // Hard line breaks should stay separate after resize
@@ -326,14 +326,14 @@ class TerminalBufferTests {
 
         buffer.resize(8, 3);
 
-        assertEquals('a', buffer.getCharacterAtPosition(0, 0));
-        assertEquals('b', buffer.getCharacterAtPosition(0, 1));
-        assertEquals('c', buffer.getCharacterAtPosition(0, 2));
-        assertEquals('d', buffer.getCharacterAtPosition(0, 3));
+        assertEquals("a", buffer.getCharacterAtPosition(0, 0));
+        assertEquals("b", buffer.getCharacterAtPosition(0, 1));
+        assertEquals("c", buffer.getCharacterAtPosition(0, 2));
+        assertEquals("d", buffer.getCharacterAtPosition(0, 3));
 
-        assertEquals('e', buffer.getCharacterAtPosition(1, 0));
-        assertEquals('f', buffer.getCharacterAtPosition(1, 1));
-        assertEquals('g', buffer.getCharacterAtPosition(1, 2));
+        assertEquals("e", buffer.getCharacterAtPosition(1, 0));
+        assertEquals("f", buffer.getCharacterAtPosition(1, 1));
+        assertEquals("g", buffer.getCharacterAtPosition(1, 2));
 
     }
 
@@ -346,13 +346,13 @@ class TerminalBufferTests {
 
         buffer.resize(3, 3);
 
-        assertEquals('a', buffer.getCharacterAtPosition(0, 0));
-        assertEquals('b', buffer.getCharacterAtPosition(0, 1));
-        assertEquals('c', buffer.getCharacterAtPosition(0, 2));
+        assertEquals("a", buffer.getCharacterAtPosition(0, 0));
+        assertEquals("b", buffer.getCharacterAtPosition(0, 1));
+        assertEquals("c", buffer.getCharacterAtPosition(0, 2));
 
-        assertEquals('d', buffer.getCharacterAtPosition(1, 0));
-        assertEquals('e', buffer.getCharacterAtPosition(1, 1));
-        assertEquals('f', buffer.getCharacterAtPosition(1, 2));
+        assertEquals("d", buffer.getCharacterAtPosition(1, 0));
+        assertEquals("e", buffer.getCharacterAtPosition(1, 1));
+        assertEquals("f", buffer.getCharacterAtPosition(1, 2));
     }
 
     // Increasing height should add empty lines
@@ -364,8 +364,8 @@ class TerminalBufferTests {
 
         buffer.resize(4, 4);
 
-        assertEquals('a', buffer.getCharacterAtPosition(0, 0));
-        assertEquals(' ', buffer.getCharacterAtPosition(3, 0));
+        assertEquals("a", buffer.getCharacterAtPosition(0, 0));
+        assertEquals(" ", buffer.getCharacterAtPosition(3, 0));
     }
 
     // Decreasing height should push lines into scrollback
@@ -377,9 +377,9 @@ class TerminalBufferTests {
 
         buffer.resize(4, 2);
 
-        assertEquals('a', buffer.getCharacterAtPosition(0, 0));
-        assertEquals('b', buffer.getCharacterAtPosition(0, 1));
-        assertEquals('e', buffer.getCharacterAtPosition(1, 0));
+        assertEquals("a", buffer.getCharacterAtPosition(0, 0));
+        assertEquals("b", buffer.getCharacterAtPosition(0, 1));
+        assertEquals("e", buffer.getCharacterAtPosition(1, 0));
     }
 
     // Cursor should stay inside the new bounds
