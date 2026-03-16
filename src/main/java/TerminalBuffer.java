@@ -120,6 +120,17 @@ public class TerminalBuffer {
         }
     }
 
+    private boolean isWideCharacter(int codePoint){
+        Character.UnicodeBlock block = Character.UnicodeBlock.of(codePoint);
+
+        return block == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
+                || block == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A
+                || block == Character.UnicodeBlock.HANGUL_SYLLABLES
+                || block == Character.UnicodeBlock.HIRAGANA
+                || block == Character.UnicodeBlock.KATAKANA
+                || Character.getType(codePoint) == Character.OTHER_SYMBOL;
+    }
+
     private void scroll(){
         TerminalLine removed = screen.removeFirst();
 
