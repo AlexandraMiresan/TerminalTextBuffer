@@ -28,12 +28,12 @@ public class TerminalCell {
         this.wideContinuation = wideCharacter;
     }
 
-    public char getCharacter() {
-        return character;
+    public int getCodePoint() {
+        return codePoint;
     }
 
-    public void setCharacter(char character) {
-        this.character = character;
+    public void setCharacter(int codePoint) {
+        this.codePoint = codePoint;
     }
 
     public Attributes getAttributes() {
