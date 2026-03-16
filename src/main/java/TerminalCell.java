@@ -19,6 +19,13 @@ public class TerminalCell {
         this.attributes = new Attributes();
         this.wideContinuation = false;
     }
+
+    public boolean isWideCharacter() {
+        return wideContinuation;
+    }
+
+    public void setWideCharacter(boolean wideCharacter) {
+        this.wideContinuation = wideCharacter;
     }
 
     public char getCharacter() {
