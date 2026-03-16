@@ -6,12 +6,19 @@ public class TerminalCell {
     public TerminalCell(char character, Attributes attributes) {
         this.character = character;
     private boolean wideContinuation;
+
+    public TerminalCell(int codePoint, Attributes attributes) {
+        this.codePoint = codePoint;
         this.attributes = attributes;
+        this.wideContinuation = false;
     }
 
     public TerminalCell(){
         this.character = ' ';
+        this.codePoint = ' ';
         this.attributes = new Attributes();
+        this.wideContinuation = false;
+    }
     }
 
     public char getCharacter() {
