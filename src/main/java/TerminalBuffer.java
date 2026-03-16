@@ -391,14 +391,35 @@ public class TerminalBuffer {
 
     private void flushBuffer(List<TerminalCell> buffer, List<TerminalLine> newScreen, int newWidth){
         int index = 0;
-        while(index < buffer.size()){
+        while(index < buffer.size()) {
             TerminalLine newLine = new TerminalLine(newWidth);
+            int i = 0;
+            while (i < newWidth && index < buffer.size()) {
+                TerminalCell cell = buffer.get(index);
 
-            for(int i = 0; i < newWidth && index < buffer.size(); i++){
-                newLine.setCell(i, buffer.get(index++));
+                if (cell.isWideCharacter()) {
+                    index++;
+                    continue;
+                }
+
+                newLine.setCell(i, cell);
+
+                if (index + 1 < buffer.size() && buffer.get(index + 1).isWideCharacter()) {
+                    if (i + 1 >= newWidth) {
+                        break;
+                    }
+
+                    newLine.setCell(i + 1, buffer.get(index + 1));
+
+                    i += 2;
+                    index += 2;
+                } else {
+                    i++;
+                    index++;
+                }
             }
 
-            if(index < buffer.size()){
+            if (index < buffer.size()) {
                 newLine.setWrapped(true);
             }
 
