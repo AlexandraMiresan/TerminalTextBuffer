@@ -3,8 +3,6 @@ public class TerminalCell {
     private int codePoint;
     private Attributes attributes;
 
-    public TerminalCell(char character, Attributes attributes) {
-        this.character = character;
     private boolean wideContinuation;
 
     public TerminalCell(int codePoint, Attributes attributes) {
@@ -14,7 +12,6 @@ public class TerminalCell {
     }
 
     public TerminalCell(){
-        this.character = ' ';
         this.codePoint = ' ';
         this.attributes = new Attributes();
         this.wideContinuation = false;
