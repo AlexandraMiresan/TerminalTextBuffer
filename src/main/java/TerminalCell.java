@@ -50,7 +50,7 @@ public class TerminalCell {
 
     @Override
     public String toString(){
-        return String.valueOf(character);
+        return new String(Character.toChars(codePoint));
     }
 
 }
