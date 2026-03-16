@@ -444,6 +444,19 @@ class TerminalBufferTests {
 
         assertEquals("你", buffer.getCharacterAtPosition(1,0));
     }
+    // Filling line with wide characters
+    @Test
+    void testFillLineWithWideCharacters() {
+
+        TerminalBuffer buffer = new TerminalBuffer(6, 3, 5);
+
+        buffer.fillLine('你');
+
+        assertEquals("你", buffer.getCharacterAtPosition(0,0));
+        assertEquals("你", buffer.getCharacterAtPosition(0,2));
+        assertEquals("你", buffer.getCharacterAtPosition(0,4));
+    }
+
     // Resize should not split wide characters
     @Test
     void testResizePreservesWideCharacters() {
