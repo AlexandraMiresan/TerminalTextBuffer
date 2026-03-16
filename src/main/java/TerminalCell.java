@@ -1,10 +1,11 @@
 public class TerminalCell {
-    private char character;
 
+    private int codePoint;
     private Attributes attributes;
 
     public TerminalCell(char character, Attributes attributes) {
         this.character = character;
+    private boolean wideContinuation;
         this.attributes = attributes;
     }
 
