@@ -144,21 +144,12 @@ public class TerminalBuffer {
     }
 
     public void insertText(String text){
-        for(char character : text.toCharArray()){
-            insertCharacter(character);
+        for(int i = 0; i < text.length();){
+            int codePoint = text.codePointAt(i);
 
-            cursorX++;
+            insertCharacter(codePoint);
 
-            if(cursorX >= width){
-                cursorX = 0;
-                cursorY++;
-
-                if(cursorY >= height){
-                    scroll();
-                    cursorY = height - 1;
-                }
-            }
-
+            i += Character.charCount(codePoint);
         }
     }
 
